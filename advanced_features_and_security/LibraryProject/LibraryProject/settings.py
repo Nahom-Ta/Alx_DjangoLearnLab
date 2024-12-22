@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookshelf',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -153,3 +155,8 @@ SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents browsers from MIME-sniffing
 SECURE_BROWSER_XSS_FILTER = True  # Enables browser XSS filtering
 SECURE_PROXY_SSL_HEADER = True 
 HTTP_X_FORWARDED_PROTO = True
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}

@@ -17,3 +17,10 @@ urlpatterns = [
     # Existing endpoints here
     path('api/posts/<int:post_id>/comment/', views.add_comment, name='add_comment'),
 ]
+from django.urls import path
+from .views import ProtectedView
+
+urlpatterns = [
+    # Other paths
+    path('api/protected/', ProtectedView.as_view(), name='protected-endpoint'),
+]
