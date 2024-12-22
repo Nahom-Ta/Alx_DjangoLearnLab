@@ -12,3 +12,8 @@ urlpatterns = [
     path('follow/<int:user_id>/', views.follow_user, name='follow_user'),
     path('unfollow/<int:user_id>/', views.unfollow_user, name='unfollow_user'),    
 ]
+
+urlpatterns = [
+    # Existing endpoints here
+    path('api/posts/<int:post_id>/comment/', views.add_comment, name='add_comment'),
+]

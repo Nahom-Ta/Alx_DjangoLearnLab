@@ -173,3 +173,23 @@ class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
         following_users = self.request.user.following.all()
         return Post.objects.filter(author__in=following_users) | Post.objects.filter(author=self.request.user)    
     
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Post, Comment
+from .serializers import CommentSerializer
+
+@api_view(['POST'])
+def add_comment(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        return Response({"error": "Post not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    comment = Comment.objects.create(
+        post=post,
+        text=request.data['comment_text'],
+        author=request.user
+    )
+    serializer = CommentSerializer(comment)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
